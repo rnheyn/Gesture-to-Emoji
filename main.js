@@ -26,3 +26,37 @@ function speak() {
     u=new SpeechSynthesisUtterance(d1+d2)
     s.speak(u)
 }
+function check() {
+    img=document.getElementById("capturedimage")
+    classifier.classify(img,got_result)
+}
+function got_result (error,results){
+    if(error){console.error(error)}
+    else{
+        console.log(results)
+        document.getElementById("result_emotion_name").innerHTML=results[0].label
+        document.getElementById("result_emotion_name2").innerHTML=results[1].label
+        prediction1=results[0].label
+        prediction2=results[1].label
+        speak()
+        if(results[0].label=="CALL"){
+            document.getElementById("update_emoji").innerHTML="&#129305;"
+        }
+        if(results[0].label=="STOP"){
+            document.getElementById("update_emoji").innerHTML="&#9995;"
+        }
+        if(results[0].label=="PEACE"){
+            document.getElementById("update_emoji").innerHTML="&#9996;"
+        }
+
+        if(results[1].label=="CALL"){
+            document.getElementById("update_emoji2").innerHTML="&#129305;"
+        }
+        if(results[1].label=="STOP"){
+            document.getElementById("update_emoji2").innerHTML="&#9995;"
+        }
+        if(results[1].label=="PEACE"){
+            document.getElementById("update_emoji2").innerHTML="&#9996;"
+        }
+    }
+}
